@@ -153,15 +153,18 @@
         },
         methods: {
             getUserProfile(){
-                return "img/profile/"+this.form.photo;
+                let getInstantPhoto = (this.form.photo.length > 200) ? this.form.photo : "img/profile/"+this.form.photo ;
+                //return "img/profile/"+this.form.photo;
+                return getInstantPhoto;
             },
             updateInfo() {
                 this.form.put('api/profile/')
                     .then(() => {
-
+                        Fire.$emit('AfterHttpRequest');
+                        this.$Progress.start();
                     })
                     .catch(() => {
-
+                        this.$Progress.fail();
                     })
             },
             updateProfilePicture(e) {
