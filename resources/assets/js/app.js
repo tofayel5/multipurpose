@@ -54,12 +54,9 @@ Vue.filter('myDate',function (created) {
     return moment(created).format('MMMM Do YYYY');
 })
 
+//for not found page
+Vue.component('not-found', require('./components/NotFound.vue'));
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
