@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -11,8 +10,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Multipurpose</title>
-{{--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" >--}}
-    <link rel="stylesheet" href="{{asset('css/app.css')}}" >
+    {{--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" >--}}
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper" id="app">
@@ -28,16 +27,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </ul>
 
         <!-- SEARCH FORM -->
-        <form class="form-inline ml-3">
             <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control form-control-navbar" @keyup="searchit" v-model="search"
+                       type="search" placeholder="Search" aria-label="Search">
                 <div class="input-group-append">
-                    <button class="btn btn-navbar" type="submit">
+                    <button class="btn btn-navbar" @click="searchit">
                         <i class="fas fa-search"></i>
                     </button>
                 </div>
             </div>
-        </form>
     </nav>
     <!-- /.navbar -->
 
@@ -59,7 +57,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </div>
                 <div class="info">
                     <a href="#" class="d-block">{{ Auth::user()->name }}
-                    <p>{{ Auth::user()->type }}</p>
+                        <p>{{ Auth::user()->type }}</p>
                     </a>
                 </div>
             </div>
@@ -67,7 +65,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <!-- Sidebar Menu -->
             <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-item">
@@ -78,42 +77,44 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </p>
                         </router-link>
                     </li>
-{{--                    @can('isAdmin')--}}
-{{--                        this side bar only for show admin--}}
-{{--                    @endcan--}}
+                    {{--                    @can('isAdmin')--}}
+                    {{--                        this side bar only for show admin--}}
+                    {{--                    @endcan--}}
                     @if(Auth::user()=='isAdmin'||'isAuthor')
-                    <li class="nav-item has-treeview " >
-                        <a href="#" class="nav-link " >
-                            <i class="nav-icon fas fa-cog teal"></i>
-                            <p>
-                                Management
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <router-link to="/users" class="nav-link ">
-                                    <i class="fas fa-users nav-icon cyan"></i>
-                                    <p>Users</p>
-                                </router-link>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Inactive Page</p>
+                        @can('isAdmin')
+                            <li class="nav-item has-treeview ">
+                                <a href="#" class="nav-link ">
+                                    <i class="nav-icon fas fa-cog teal"></i>
+                                    <p>
+                                        Management
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
                                 </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <router-link to="/users" class="nav-link ">
+                                            <i class="fas fa-users nav-icon cyan"></i>
+                                            <p>Users</p>
+                                        </router-link>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Inactive Page</p>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
-                        </ul>
-                    </li>
+                        @endcan
 
-                    <li class="nav-item">
-                        <router-link to="#" class="nav-link">
-                            <i class="nav-icon fas fa-tools green"></i>
-                            <p>
-                                Developer
-                            </p>
-                        </router-link>
-                    </li>
+                        <li class="nav-item">
+                            <router-link to="#" class="nav-link">
+                                <i class="nav-icon fas fa-tools green"></i>
+                                <p>
+                                    Developer
+                                </p>
+                            </router-link>
+                        </li>
                     @endif
                     <li class="nav-item">
                         <router-link to="/profile" class="nav-link">
@@ -130,7 +131,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                            document.getElementById('logout-form').submit();">
                             <i class="nav-icon fas fa-sign-out-alt red"></i>
                             <P>
-                              {{ __('Logout') }}
+                                {{ __('Logout') }}
                             </P>
                         </a>
 
@@ -170,7 +171,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 @auth
     <script>
-    window.user = @json(auth()->user())
+        window.user = @json(auth()->user())
     </script>
 @endauth
 <script src="{{asset('js/app.js')}}"></script>

@@ -41,7 +41,8 @@ Vue.use(VueRouter)
 let routes = [
     { path: '/dashboard', component: require('./components/Dashboard.vue') },
     { path: '/users', component: require('./components/Users.vue') },
-    { path: '/profile', component: require('./components/Profile.vue') }
+    { path: '/profile', component: require('./components/Profile.vue') },
+    { path: '*', component: require('./components/NotFound.vue') }
 ]
 const router = new VueRouter({
     mode: 'history',
@@ -54,6 +55,7 @@ Vue.filter('myDate',function (created) {
     return moment(created).format('MMMM Do YYYY');
 })
 
+Vue.component('pagination', require('laravel-vue-pagination'));
 //for not found page
 Vue.component('not-found', require('./components/NotFound.vue'));
 
@@ -62,5 +64,13 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 
 const app = new Vue({
     el: '#app',
-    router
+    router,
+    data:{
+        search:''
+    },
+    methods:{
+        searchit:_.debounce(()=>{
+            Fire.$emit('searching');
+        },1000)
+    }
 });
